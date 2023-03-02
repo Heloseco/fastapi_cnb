@@ -41,14 +41,14 @@ task-4-routers
 github@branch/c/remote/push  (new-branch)
 git clone https://github.com/ristonhen/fastapi.git
 cd git*
-git checkout -b task-9-completed
+git checkout -b task-8-add_alembic
 
-github@branch/c/remote/push (fastapi)
+github@branch/c/remote/push (task-2)
 git branch -a
 touch devolution.jpg
 git add .
-git commit -m "completed"
-git push --set-upstream origin task-9-completed
+git commit -m "complet with alembic"
+git push --set-upstream origin task-8-add_alembic
 
 github@branch/c/remote/push (new-branch)
 touch eden.html
