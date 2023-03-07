@@ -60,3 +60,25 @@ git push origin
 
 ### HTTP Request message status code .
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+
+
+
+
+
+
+…or create a new repository on the command line
+echo "# fastapi" >> README.md
+git init
+git add README.md
+git commit -m "Completed"
+git branch -M main
+git remote add origin https://github.com/ristonhen/fastapi.git
+git push -u origin main
+
+
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/ristonhen/fastapi.git
+git branch -M main
+git push -u origin main
