@@ -45,5 +45,5 @@ def get_current_user(token: str  = Depends(oauth2_scheme),db: Session = Depends(
                                            headers={"WWW-Authenticate": "Bearer"})
     token = verify_access_token(token, credentails_exeption)
 
-    user = db.query(models.User).filter(models.User.id == token.id).first()
+    user = db.query(models.User).filter(models.User.user_id == token.id).first()
     return user
