@@ -21,7 +21,7 @@ def create_access_token(data: dict):
 
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY,algorithm=ALGORITHM)
 
-    return encoded_jwt
+    return {"token":encoded_jwt, "expire":"123", "token_type": "bearer"}
 
 def verify_access_token(token: str, credentails_exeption):
 
@@ -33,13 +33,13 @@ def verify_access_token(token: str, credentails_exeption):
             raise credentails_exeption
         token_data = schemas.TokenData(id=id)
     except JWTError as e:
-
         raise credentails_exeption
+    
     except AssertionError as e:
         print(e)
     return token_data
 
-def get_current_user(token: str  = Depends(oauth2_scheme),db: Session = Depends(database.get_db)):
+async def get_current_user(token: str  = Depends(oauth2_scheme),db: Session = Depends(database.get_db)):
     credentails_exeption = HTTPException(status_code= status.HTTP_401_UNAUTHORIZED,
                                          detail=f"Could not validate credentials",
                                            headers={"WWW-Authenticate": "Bearer"})
@@ -47,3 +47,8 @@ def get_current_user(token: str  = Depends(oauth2_scheme),db: Session = Depends(
 
     user = db.query(models.User).filter(models.User.user_id == token.id).first()
     return user
+
+# async def get_current_active_user(current_user: schemas.UserOut = Depends(get_current_user)):
+#     if current_user.status:
+#         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Inactive User")
+#     return current_user

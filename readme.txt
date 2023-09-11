@@ -8,7 +8,7 @@ $ pip freeze                                ## To show all pkg
 
 $ uvicorn main:app                          ## run App
 uvicorn app.main:app --reload
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 ## https://docs.sqlalchemy.org/en/14/
 $ pip install SQLAlchemy

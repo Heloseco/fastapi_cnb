@@ -25,12 +25,11 @@ router = APIRouter(
 
 @router.post("/login",response_model=schemas.Token)
 def login(user_credentail: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
-    
-    # return username no email  =
-    # return password           =
-    
+
     user = db.query(models.User).filter(models.User.email == user_credentail.username).first()
 
+    if user.status == False:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="User Inactive")
     if not user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, 
                             detail=f"Invalid Credentails (Username)")
@@ -38,7 +37,6 @@ def login(user_credentail: OAuth2PasswordRequestForm = Depends(), db: Session = 
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, 
                             detail=f"Invalid Credentails (Password)")
     
-    # create token
-    # retuern token
     access_token = oauth2.create_access_token(data={"user_id": user.user_id})
-    return {"access_token": access_token, "token_type": "bearer"}
+    # print(access_token)
+    return {"access_token": access_token,"user": user}

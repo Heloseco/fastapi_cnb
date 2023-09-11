@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from . import models 
 from .database import engine
-from .routers import post, user,auth , vote, menu
+from .routers import post, user,auth , vote, menu, index
 from .config import Setting
 
 
@@ -30,11 +30,13 @@ app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(vote.router)
 app.include_router(menu.router)
+app.include_router(index.router)
 
 
 @app.get("/")
 def read_root():
     return {"message": "wecome to my api"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
